@@ -50,7 +50,7 @@ public class Main {
 			in.nextLine();
 			if (!isPrime(x) && isPrime(y) && isPrime(z)) {
 				System.out.println(30);
-			} else {
+			} else { 
 				System.out.println(20);
 			}
 			in.useDelimiter(p);
