@@ -1,3 +1,6 @@
+package main;
+
+
 import java.text.*; //For DecimalFormat
 import java.util.*; //For Scanner, ArrayList
 import java.util.regex.Pattern;
