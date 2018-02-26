@@ -1,6 +1,5 @@
 package main;
 
-
 import java.text.*; //For DecimalFormat
 import java.util.*; //For Scanner, ArrayList
 import java.util.regex.Pattern;
@@ -8,7 +7,7 @@ import java.util.regex.Pattern;
 public class Main {
 	static Scanner in = new Scanner(System.in);
 	public static void main(String[] args) {
-		problemThree();
+		problemFive();
 	}
 	
 	public static String format(double n, String pattern) {
@@ -57,6 +56,61 @@ public class Main {
 				System.out.println(20);
 			}
 			in.useDelimiter(p);
+		}
+	}
+	
+	public static void problemFour() {
+		int[] answer = {0, 0, 0};
+		int zilka = 1;
+		int morka = in.nextInt();
+		int lotska = in.nextInt()*morka;
+		int billka = in.nextInt()*lotska;
+		
+		int coins[] = {zilka, morka, lotska};
+        int n = in.nextInt()%billka;
+        
+        while (n != 0) {
+            for (int i=coins.length - 1 ; i>=0 ; i--) {
+                if (coins[i] <= n) {
+                    n = n - coins[i];
+                    answer[i]++;
+                    i++; 
+                }
+            }
+        }
+        
+        System.out.print("Change is ");
+        System.out.print(answer[2]+" lotska, ");
+        System.out.print(answer[1]+" morka, ");
+        System.out.println(answer[0]+" zilka");
+	}
+	
+	static int start;
+	static int k;
+	public static void problemFive() {
+		for (int i = 0; i<5; i++) {
+			System.out.print("Enter the start integer and the number of terms to display: ");
+			start = in.nextInt();
+			k = in.nextInt();
+			f(start,1);
+		}
+
+	}
+    
+	public static void f(int n, int i) {
+		int product = 1;
+		int copyN = n;
+		while (copyN > 0) {
+			int digit = copyN % 10;
+			if (digit != 0) product *= digit;
+			copyN = (int)Math.floor((double)copyN / 10d);
+		}
+	
+		if (i<k) {
+			System.out.print(n+", ");
+			f(n+product, i+1);
+		} else {
+			System.out.println(n);
 		}
 	}
 	
