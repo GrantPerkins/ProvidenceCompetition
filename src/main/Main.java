@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class Main {
 	static Scanner in = new Scanner(System.in);
 	public static void main(String[] args) {
-		problemSeven();
+		problemEight();
 	}
 	
 	public static String format(double n, String pattern) {
@@ -137,6 +137,31 @@ public class Main {
 			}
 		}
 		System.out.println(iar+" 0 "+reg[1]+" "+reg[2]+" "+reg[3]);
+	}
+	
+	public static void problemEight() {
+		// (Hi (Ho To) Bye (Why (Not Do) It))
+		String[] input = in.nextLine().split(" ");
+		int level = 0;
+		for (String s: input) {
+			int localLevel = level;
+			String word = "";
+			for (char c: s.toCharArray()) {
+				if(c == '(') {
+					level++;
+					localLevel++;
+				} else if (c == ')') {
+					level--;
+				} else {
+					word += c;
+				}
+			}
+			
+			for (int i = 1; i< localLevel; i++) {
+				System.out.print("    ");
+			}
+			System.out.println(word);
+		}
 	}
 	
 	public static double chord1(double x) {
