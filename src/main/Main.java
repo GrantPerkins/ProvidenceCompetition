@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class Main {
 	static Scanner in = new Scanner(System.in);
 	public static void main(String[] args) {
-		problemFifteen();
+		problemSeventeen();
 	}
 	
 	public static String format(double n, String pattern) {
@@ -350,6 +350,107 @@ public class Main {
 		}
 		System.out.println(iar+" 0 "+reg[1]+" "+reg[2]+" "+reg[3]);
 	}
+	
+	public static void problemSixteen() {
+		//New List Form
+		//Oh1 No2 Not3 This2 Why1 Yes2
+		String[] input = in.nextLine().split(" ");
+		int level = 0;
+		for (String s: input) {
+			String word = "";
+			for (char c: s.toCharArray()) {
+				if ("0123456789".contains(Character.toString(c))) {
+					level=c-'0';
+				} else {
+					word += c;
+				}
+			}
+			
+			for (int i = 1; i< level; i++) {
+				System.out.print("    ");
+			}
+			System.out.println(word);
+		}
+	}
+	
+	static char[][] sudoku;
+	public static void problemSeventeen() {
+		sudoku = new char[4][4];
+		for (int i =0; i < 4; i++) {
+			sudoku[i] = in.nextLine().toCharArray();
+		}
+		boolean solved = solve(sudoku);
+		if (solved) {
+			System.out.print("Solution:");
+			for (char[] line : sudoku) {
+				for (char c : line) System.out.print(c);
+				System.out.println();
+			}
+		} else {
+			System.out.println("No Valid Solution");
+		}
+	}
+	 
+	public static boolean solve(char[][] board){
+	    for(int i=0; i<4; i++){
+	        for(int j=0; j<4; j++){
+	            if(board[i][j]!='.')
+	                continue;
+	            for(int k=1; k<=4; k++){
+	                board[i][j] = (char) (k+'0');
+	                if(isValid(board, i, j) && solve(board))
+	                    return true;
+	                board[i][j] = '.';    
+	            }
+	 
+	            return false;
+	        }
+	    }
+	 
+	    return true; // does not matter
+	}
+	 
+	public static boolean isValid(char[][] board, int i, int j){
+	    HashSet<Character> set = new HashSet<Character>();
+	 
+	    for(int k=0; k<4; k++){
+	        if(set.contains(board[i][k]))
+	            return false;
+	 
+	        if(board[i][k]!='.' ){
+	            set.add(board[i][k]);
+	        }
+	    }
+	 
+	    set.clear();
+	 
+	    for(int k=0; k<4; k++){
+	        if(set.contains(board[k][j]))
+	            return false;
+	 
+	        if(board[k][j]!='.' ){
+	            set.add(board[k][j]);
+	        }
+	    }
+	 
+	    set.clear();
+	 
+	    for(int m=0; m<2; m++){
+	        for(int n=0; n<2; n++){
+	            int x=i/2*2+m;
+	            int y=j/2*2+n;
+	            if(set.contains(board[x][y]))
+	                return false;
+	 
+	            if(board[x][y]!='.'){
+	                set.add(board[x][y]);
+	            }    
+	        }
+	    }
+	 
+	    return true;
+	}
+
 	
 	public static void g(int n, int i) {
 		int sum = 0;
