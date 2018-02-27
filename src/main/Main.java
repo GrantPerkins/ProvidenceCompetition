@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class Main {
 	static Scanner in = new Scanner(System.in);
 	public static void main(String[] args) {
-		problemThirteen();
+		problemFifteen();
 	}
 	
 	public static String format(double n, String pattern) {
@@ -16,11 +16,13 @@ public class Main {
 	}
 	
 	public static void problemOne() {
+		//Power 2
 		int position = in.nextInt();
 		System.out.println(Integer.highestOneBit(position));
 	}
 	
 	public static void problemTwo() {
+		//Betsy's Bird Feeder Problem
 		System.out.print("Enter number of feeders: ");
 		int numberOfFeeders = in.nextInt();
 		double[] feeders = new double[numberOfFeeders];
@@ -41,6 +43,7 @@ public class Main {
 	}
 	
 	public static void problemThree() {
+		//Bonus coupon
 		Pattern p = in.delimiter();
 		int x,y,z;
 		for (int i=0; i < 6; i++){
@@ -60,6 +63,7 @@ public class Main {
 	}
 	
 	public static void problemFour() {
+		//Whatska the Changeska
 		int[] answer = {0, 0, 0};
 		int zilka = 1;
 		int morka = in.nextInt();
@@ -88,6 +92,7 @@ public class Main {
 	static int start;
 	static int k;
 	public static void problemFive() {
+		//Digit Product Sequences
 		for (int i = 0; i<5; i++) {
 			System.out.print("Enter the start integer and the number of terms to display: ");
 			start = in.nextInt();
@@ -97,12 +102,14 @@ public class Main {
 	}
 	
 	public static void problemSix() {
+		//Chord Problem
 		start = in.nextInt();
 		int n = in.nextInt();
 		System.out.println(format(chord2(start/(int)(Math.pow(2, n))), "#.#"));
 	}
 	
 	public static void problemSeven() {
+		//Primitive Computer
 		int[] reg = new int[4];
 		reg[0] = 0;
 		int iar = in.nextInt();
@@ -140,6 +147,7 @@ public class Main {
 	}
 	
 	public static void problemEight() {
+		//Parens
 		// (Hi (Ho To) Bye (Why (Not Do) It))
 		String[] input = in.nextLine().split(" ");
 		int level = 0;
@@ -165,6 +173,7 @@ public class Main {
 	}
 	
 	public static int problemNine() {
+		//Kindergarten Sudoku Checker
 		String[] english = {"first", "second", "third", "fourth"};
 		char[][] original = new char[4][4];
 		for (int i = 0; i<4; i++) {
@@ -224,6 +233,7 @@ public class Main {
 	}
 	
 	public static void problemTen() {
+		//Power 3
 		String input = Integer.toString(in.nextInt(), 3);
 		int index = 0;
 		if (input.charAt(0) == '1') {
@@ -233,6 +243,7 @@ public class Main {
 	}
 	
 	public static void problemEleven() {
+		//Fundraiser
 		Pattern p = in.delimiter();
 		int x,y,z;
 		for (int i=0; i < 6; i++){
@@ -252,6 +263,7 @@ public class Main {
 	}
 	
 	public static void problemTwelve() {
+		//Pairs
 		ArrayList<String> words = new ArrayList<String>();
 		String word;
 		while (true) {
@@ -272,29 +284,87 @@ public class Main {
 	}
 	
 	public static void problemThirteen() {
+		//Digit Sum Sequences
+		for (int i = 0; i<5; i++) {
+			System.out.print("Enter the start integer and the number of terms to display: ");
+			start = in.nextInt();
+			k = in.nextInt();
+			g(start,1);
+		}
+	}
+	
+	public static void problemFourteen() {
+		//Egyptian Multiplication
 		int n = in.nextInt();
 		int x = in.nextInt();
-		ArrayList<Integer> products = new ArrayList<Integer>();
+		ArrayList<String> products = new ArrayList<String>();
 		for (int i = 0; Math.pow(2, i-1) < x; i++) {
 			System.out.println((int)Math.pow(2, i)*n + " " +(int)Math.pow(2, i));
 		}
-		System.out.print(x+" is sum of ");
-		int high = Integer.highestOneBit(x);
-		products.add(high);
-		System.out.print(high);
-		x-=high;
 		while (x != 0) {
-			high = Integer.highestOneBit(x);
-			products.add(high);
-			System.out.print(" and "+high);
+			int high = Integer.highestOneBit(x);
+			products.add(Integer.toString(high));
 			x-=high;
 		}
-		System.out.println();
-		System.out.print("Product is sum of "+products.get(0)*n);
-		for (int i = 1; i<products.size(); i++) {
-			System.out.print(" and "+products.get(i)*n);
+		System.out.println(String.join(x+" is sum of "+" and ", products));
+		for (int i = 0; i<products.size(); i++) {
+			products.set(i, Integer.toString(Integer.parseInt(products.get(i))*n));
 		}
-		
+		System.out.println("Product is sum of " + String.join(" and ", products));
+	}
+	
+	public static void problemFifteen() {
+		//Simple Computer
+		int[] reg = new int[4];
+		reg[0] = 0;
+		int iar = in.nextInt();
+		for (int i =1; i < 4; i++) reg[i] = in.nextInt();
+		int[] op = new int[3];
+		int opCode = in.nextInt();
+		for (int i = 0; i < 3; i++) op[i] = in.nextInt();
+		switch (opCode){
+		case 0:
+			if (op[0] != 0) {
+				reg[op[0]] = reg[op[1]] + reg[op[2]];
+			}
+			iar++;
+			break;
+		case 1:
+			if (op[0] != 0) {
+				reg[op[0]] = reg[op[1]] + op[1];
+			}
+			iar++;
+			break;
+		case 2:
+			if (reg[op[0]] != reg[op[1]]) {
+				iar = op[2];
+			} else {
+				iar++;
+			}
+		case 3:
+			if (reg[op[0]] != reg[op[1]]) {
+				iar = op[2];
+			} else {
+				iar++;
+			}
+		}
+		System.out.println(iar+" 0 "+reg[1]+" "+reg[2]+" "+reg[3]);
+	}
+	
+	public static void g(int n, int i) {
+		int sum = 0;
+		int copyN = n;
+		while (copyN > 0) {
+			int digit = copyN % 10;
+			sum += digit;
+			copyN = (int)Math.floor((double)copyN / 10d);
+		}
+		if (i<k) {
+			System.out.print(n+", ");
+			g(n+sum, i+1);
+		} else {
+			System.out.println(n);
+		}
 	}
 	
 	public static boolean contains(char[] array, char item) {
@@ -309,11 +379,9 @@ public class Main {
 	    if(lengthOfList == 1) { return words; 
 	    } else {
 	        ArrayList<String> allSublists = getAllLists(words, lengthOfList - 1);
-	        int arrayIndex = 0;
 	        for(int i = 0; i < words.size(); i++){
 	            for(int j = 0; j < allSublists.size(); j++){
 	                allLists.add(words.get(i) +" "+ allSublists.get(j));
-	                arrayIndex++;
 	            }
 	        }
 	        return allLists;
@@ -345,7 +413,6 @@ public class Main {
 			if (digit != 0) product *= digit;
 			copyN = (int)Math.floor((double)copyN / 10d);
 		}
-	
 		if (i<k) {
 			System.out.print(n+", ");
 			f(n+product, i+1);
