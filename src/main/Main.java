@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class Main {
 	static Scanner in = new Scanner(System.in);
 	public static void main(String[] args) {
-		problemNine();
+		problemThirteen();
 	}
 	
 	public static String format(double n, String pattern) {
@@ -223,11 +223,101 @@ public class Main {
 		return 0;
 	}
 	
+	public static void problemTen() {
+		String input = Integer.toString(in.nextInt(), 3);
+		int index = 0;
+		if (input.charAt(0) == '1') {
+			index = 1;
+		}
+		System.out.println((int)Math.pow(3, input.length() - index));
+	}
+	
+	public static void problemEleven() {
+		Pattern p = in.delimiter();
+		int x,y,z;
+		for (int i=0; i < 6; i++){
+			in.useDelimiter(""); //Used for taking in one digit of serial at a time
+			x=in.nextInt();
+			y=in.nextInt();
+			z=in.nextInt();
+			in.useDelimiter(" ");
+			in.nextLine();
+			if (isPrime(x) && !isPrime(y) && isPrime(z)) {
+				System.out.println("Winner");
+			} else { 
+				System.out.println("Not a Winner");
+			}
+			in.useDelimiter(p);
+		}
+	}
+	
+	public static void problemTwelve() {
+		ArrayList<String> words = new ArrayList<String>();
+		String word;
+		while (true) {
+			word=in.next();
+			if (!word.equals("*")) {
+				if (!word.equals("#")) {
+					words.add(word);
+				}
+			} else {
+				break;
+			}
+		}
+		ArrayList<String> pairs = getAllLists(words, 2);
+		Collections.sort(pairs);
+		for (String pair : pairs) {
+			System.out.println(pair);
+		}
+	}
+	
+	public static void problemThirteen() {
+		int n = in.nextInt();
+		int x = in.nextInt();
+		ArrayList<Integer> products = new ArrayList<Integer>();
+		for (int i = 0; Math.pow(2, i-1) < x; i++) {
+			System.out.println((int)Math.pow(2, i)*n + " " +(int)Math.pow(2, i));
+		}
+		System.out.print(x+" is sum of ");
+		int high = Integer.highestOneBit(x);
+		products.add(high);
+		System.out.print(high);
+		x-=high;
+		while (x != 0) {
+			high = Integer.highestOneBit(x);
+			products.add(high);
+			System.out.print(" and "+high);
+			x-=high;
+		}
+		System.out.println();
+		System.out.print("Product is sum of "+products.get(0)*n);
+		for (int i = 1; i<products.size(); i++) {
+			System.out.print(" and "+products.get(i)*n);
+		}
+		
+	}
+	
 	public static boolean contains(char[] array, char item) {
 		for (char c : array) {
 			if (c == item) return true;
 		}
 		return false;
+	}
+	
+	public static ArrayList<String> getAllLists(ArrayList<String> words, int lengthOfList) {
+	    ArrayList<String> allLists = new ArrayList<String>();
+	    if(lengthOfList == 1) { return words; 
+	    } else {
+	        ArrayList<String> allSublists = getAllLists(words, lengthOfList - 1);
+	        int arrayIndex = 0;
+	        for(int i = 0; i < words.size(); i++){
+	            for(int j = 0; j < allSublists.size(); j++){
+	                allLists.add(words.get(i) +" "+ allSublists.get(j));
+	                arrayIndex++;
+	            }
+	        }
+	        return allLists;
+	    }
 	}
 	
 	public static double chord1(double x) {
