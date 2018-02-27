@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class Main {
 	static Scanner in = new Scanner(System.in);
 	public static void main(String[] args) {
-		problemEight();
+		problemNine();
 	}
 	
 	public static String format(double n, String pattern) {
@@ -162,6 +162,72 @@ public class Main {
 			}
 			System.out.println(word);
 		}
+	}
+	
+	public static int problemNine() {
+		String[] english = {"first", "second", "third", "fourth"};
+		char[][] original = new char[4][4];
+		for (int i = 0; i<4; i++) {
+			original[i] = in.next().toCharArray();
+		}
+		char[][] inputArray = new char[4][4];
+		for (int i = 0; i<4; i++) {
+			inputArray[i] = in.next().toCharArray();
+			for (int index = 0; index < 4; index++) {
+				if (original[i][index] != '.') {
+					if (original[i][index] != inputArray[i][index]) {
+						System.out.println("The digit "+original[i][index]+" in the "+english[i]+" row and the "+english[index]+
+								" column has been changed");
+						return 0;
+					}
+				}
+			}
+			char[] line = inputArray[i];
+			if (!contains(line, '1')) {
+				System.out.println("1 not found in the "+english[i]+" row");
+				return 0;
+			}
+			if (!contains(line, '2')) {
+				System.out.println("2 not found in the "+english[i]+" row");
+				return 0;
+			}
+			if (!contains(line, '3')) {
+				System.out.println("3 not found in the "+english[i]+" row");
+				return 0;
+			}
+			if (!contains(line, '4')) {
+				System.out.println("4 not found in the "+english[i]+" row");
+				return 0;
+			}
+		}
+		for (int i = 0; i<4; i++) {
+			char[] line = {inputArray[0][i],inputArray[1][i],inputArray[2][i],inputArray[3][i]};
+			if (!contains(line, '1')) {
+				System.out.println("1 not found in the "+english[i]+" column");
+				return 0;
+			}
+			if (!contains(line, '2')) {
+				System.out.println("2 not found in the "+english[i]+" column");
+				return 0;
+			}
+			if (!contains(line, '3')) {
+				System.out.println("3 not found in the "+english[i]+" column");
+				return 0;
+			}
+			if (!contains(line, '4')) {
+				System.out.println("4 not found in the "+english[i]+" column");
+				return 0;
+			}
+		}
+		System.out.println("Valid Solution");
+		return 0;
+	}
+	
+	public static boolean contains(char[] array, char item) {
+		for (char c : array) {
+			if (c == item) return true;
+		}
+		return false;
 	}
 	
 	public static double chord1(double x) {
